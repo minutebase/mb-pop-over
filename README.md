@@ -1,6 +1,15 @@
-# Mb-pop-over
+# mb-pop-over
 
-This README outlines the details of collaborating on this Ember addon.
+WiP
+
+```handlebars
+{{#pop-over}}
+  {{#pop-over-anchor}}Click Me{{/pop-over-anchor}}
+  {{#pop-over-body}}
+    The pop-over contents
+  {{/pop-over-body}}
+{{/pop-over}}
+```
 
 ## Installation
 
