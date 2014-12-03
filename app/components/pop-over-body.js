@@ -93,6 +93,7 @@ export default Ember.Component.extend({
         maxLeft = Ember.$(window).width() / 2;
         idealTop = anchor.top + (anchor.height / 2) - (height / 2);
         top = idealTop > maxTop ? maxTop : idealTop;
+        top = top < edgeBuffer ? edgeBuffer : top;
         arrowDiff = idealTop - top;
         this.$(".pop-over-arrow").css({
           bottom: (height / 2) - arrowDiff
@@ -122,6 +123,7 @@ export default Ember.Component.extend({
         maxLeft = Ember.$(window).width() - width - edgeBuffer;
         idealLeft = anchor.left + (anchor.width / 2) - (width / 2);
         left = idealLeft > maxLeft ? maxLeft : idealLeft;
+        left = left < edgeBuffer ? edgeBuffer : left;
         arrowDiff = idealLeft - left;
         this.$(".pop-over-arrow").css({
           left: (width / 2) + arrowDiff
