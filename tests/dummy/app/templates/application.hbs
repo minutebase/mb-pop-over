@@ -1,3 +1,45 @@
 <h2 id='title'>Welcome to Ember.js</h2>
 
-{{outlet}}
+<div class="pop-overs">
+
+  {{#pop-over class="bottom"}}
+    {{#pop-over-anchor}}Click Me (bottom){{/pop-over-anchor}}
+    {{#pop-over-body}}
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    {{/pop-over-body}}
+  {{/pop-over}}
+
+  {{#pop-over position="top" class="top"}}
+    {{#pop-over-anchor}}Click Me (top){{/pop-over-anchor}}
+    {{#pop-over-body}}
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+      <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    {{/pop-over-body}}
+  {{/pop-over}}
+
+  {{#pop-over position="left" class="left"}}
+    {{#pop-over-anchor}}Click Me (left){{/pop-over-anchor}}
+    {{#pop-over-body}}
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+      <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    {{/pop-over-body}}
+  {{/pop-over}}
+
+  {{#pop-over position="right" class="right"}}
+    {{#pop-over-anchor}}Click Me (right){{/pop-over-anchor}}
+    {{#pop-over-body}}
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+      <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    {{/pop-over-body}}
+  {{/pop-over}}
+
+</div>

@@ -1,3 +1,45 @@
 html, body {
   margin: 20px;
 }
+
+.pop-over {
+  display: inline-block;
+  position: relative;
+}
+
+.pop-over__anchor {
+  display: inline-block;
+}
+
+.pop-over__body {
+  position: fixed;
+  border: 1px solid #CCC;
+  background-color: #FFF;
+  min-width: 100px;
+  max-width: 300px;
+  z-index: 10;
+}
+
+.pop-over--bottom .pop-over__body {
+  top: 100%;
+}
+
+.pop-over--top .pop-over__body {
+  bottom: 100%;
+}
+
+.pop-over--left .pop-over__body {
+  right: 100%;
+  top: -100%;
+}
+
+.pop-over--right .pop-over__body {
+  left: 100%;
+  top: -100%;
+}
+
+/* demo */
+
+.pop-overs {
+  margin-top: 300px;
+}
