@@ -12,7 +12,10 @@ export default Ember.Component.extend({
 
   isOpen: Ember.computed.alias("popOver.isOpen"),
 
-  toggle: function() {
+  toggle: function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
     this.toggleProperty("isOpen");
   }.on("click")
 
