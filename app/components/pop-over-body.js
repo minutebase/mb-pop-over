@@ -34,7 +34,7 @@ export default Ember.Component.extend({
   },
 
   setupListeners: function() {
-    this._scrollHandler = this._scrollHandler || Ember.run.debounce(this, this.reposition, 10);
+    this._scrollHandler = this._scrollHandler || this.repositionDebounced.bind(this);
     this._clickHandler  = this._clickHandler || this.hideIfClickedOutside.bind(this);
 
     scrollParent(this.$()).on("scroll", this._scrollHandler);
@@ -43,7 +43,7 @@ export default Ember.Component.extend({
 
   teardownListeners: function() {
     if (this._scrollHandler) {
-      scrollParent(this.$()).on("scroll", this._scrollHandler);
+      scrollParent(this.$()).off("scroll", this._scrollHandler);
     }
     if (this._clickHandler) {
       Ember.$(document).off("mouseup", this._clickHandler);
@@ -70,6 +70,10 @@ export default Ember.Component.extend({
       height: height,
       width:  width
     };
+  },
+
+  repositionDebounced: function() {
+    return Ember.run.debounce(this, this.reposition, 10);
   },
 
   // TODO - refactor
