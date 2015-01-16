@@ -7,6 +7,7 @@ export default Ember.Component.extend({
   classNames: ["pop-over__body"],
 
   popOver: null,
+  interactive: false,
 
   setupParent: function() {
     var parent = this.nearestWithProperty("isOpen");
@@ -32,6 +33,12 @@ export default Ember.Component.extend({
     }
     this.set("isOpen", false);
   },
+
+  hideIfClicked: function(e) {
+    if (!this.get("interactive")) {
+      this.set("isOpen", false);
+    }
+  }.on("click"),
 
   setupListeners: function() {
     this._scrollHandler = this._scrollHandler || this.repositionDebounced.bind(this);
