@@ -34,7 +34,7 @@ export default Ember.Component.extend({
     this.set("isOpen", false);
   },
 
-  hideIfClicked: function(e) {
+  hideIfClicked: function() {
     if (!this.get("interactive")) {
       this.set("isOpen", false);
     }
@@ -58,25 +58,7 @@ export default Ember.Component.extend({
   }.on("willDestroyElement"),
 
   anchorPosition: function() {
-    var $parent = this.get("popOver").$();
-
-    var height  = $parent.outerHeight();
-    var width   = $parent.outerWidth();
-    var offset  = $parent.offset();
-    var top     = offset.top;
-    var left    = offset.left;
-
-    var bottom = top  + height;
-    var right  = left + width;
-
-    return {
-      left:   left,
-      right:  right,
-      top:    top,
-      bottom: bottom,
-      height: height,
-      width:  width
-    };
+    return this.get("popOver.element").getBoundingClientRect();
   },
 
   repositionDebounced: function() {
@@ -85,17 +67,21 @@ export default Ember.Component.extend({
 
   // TODO - refactor
   reposition: function() {
-    var anchor, arrowDiff, edgeBuffer, height, idealLeft, idealTop, left, maxLeft, maxTop, move, top, width;
+    var arrowDiff, idealLeft, idealTop, left, maxLeft, maxTop, move, top;
     if (this._state !== "inDOM") {
       return;
     }
-    anchor = this.anchorPosition();
+
+    var anchor = this.anchorPosition();
+
     if (!anchor) {
       return;
     }
-    height = this.$().outerHeight(true);
-    width = this.$().outerWidth(true);
-    edgeBuffer = 10;
+
+    var height     = this.$().outerHeight(true);
+    var width      = this.$().outerWidth(true);
+    var edgeBuffer = 10;
+
     switch (this.get("position")) {
       case "right":
       case "left":
@@ -127,6 +113,7 @@ export default Ember.Component.extend({
           };
         }
         break;
+
       case "bottom":
       case "top":
         top = anchor.bottom;
@@ -157,6 +144,7 @@ export default Ember.Component.extend({
           };
         }
     }
-    return this.$().css(move);
+
+    this.$().css(move);
   }
 });
