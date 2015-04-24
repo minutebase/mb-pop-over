@@ -1,93 +1,50 @@
 <h2 id='title'>MB-PopOver</h2>
+<div class="make-it-scroll">
+  <div class="inner">
+    <div class="pop-overs">
+      {{#pop-over class="bottom"}}
+        {{#pop-over-anchor}}bottom{{/pop-over-anchor}}
+        {{#pop-over-body}}
+          {{lorem-ipsum}}
+        {{/pop-over-body}}
+      {{/pop-over}}
 
-<div class="pop-overs">
-  {{#pop-over class="bottom"}}
-    {{#pop-over-anchor}}Click Me (bottom){{/pop-over-anchor}}
-    {{#pop-over-body}}
-      {{lorem-ipsum}}
-      <p>
-        <button {{action "clicked"}}>Click Me</button>
-      </p>
-    {{/pop-over-body}}
-  {{/pop-over}}
+      {{#pop-over position="top"}}
+        {{#pop-over-anchor}}top{{/pop-over-anchor}}
+        {{#pop-over-body}}
+          {{lorem-ipsum}}
+        {{/pop-over-body}}
+      {{/pop-over}}
 
-  {{#pop-over position="top" class="top"}}
-    {{#pop-over-anchor}}Click Me (top){{/pop-over-anchor}}
-    {{#pop-over-body}}
-      {{lorem-ipsum}}
-      <p>
-        <button {{action "clicked"}}>Click Me</button>
-      </p>
-    {{/pop-over-body}}
-  {{/pop-over}}
+      {{#pop-over position="left"}}
+        {{#pop-over-anchor}}left{{/pop-over-anchor}}
+        {{#pop-over-body}}
+          {{lorem-ipsum}}
+        {{/pop-over-body}}
+      {{/pop-over}}
 
-  {{#pop-over position="left" class="left"}}
-    {{#pop-over-anchor}}Click Me (left){{/pop-over-anchor}}
-    {{#pop-over-body}}
-      {{lorem-ipsum}}
-      <p>
-        <button {{action "clicked"}}>Click Me</button>
-      </p>
-    {{/pop-over-body}}
-  {{/pop-over}}
+      {{#pop-over position="right"}}
+        {{#pop-over-anchor}}right{{/pop-over-anchor}}
+        {{#pop-over-body}}
+          {{lorem-ipsum}}
+        {{/pop-over-body}}
+      {{/pop-over}}
+    </div>
 
-  {{#pop-over position="right" class="right"}}
-    {{#pop-over-anchor}}Click Me (right){{/pop-over-anchor}}
-    {{#pop-over-body}}
-      {{lorem-ipsum}}
-      <p>
-        <button {{action "clicked"}}>Click Me</button>
-      </p>
-    {{/pop-over-body}}
-  {{/pop-over}}
+    <p>
+      By default the pop-over closes when the body is clicked,
+      set <code>interactive=true</code> to override this behaviour
+      so you can manually close it when you want
+    </p>
+
+    <div class="pop-overs">
+      {{#pop-over class="bottom"}}
+        {{#pop-over-anchor}}interactive{{/pop-over-anchor}}
+        {{#pop-over-body interactive=true}}
+          {{lorem-ipsum}}
+        {{/pop-over-body}}
+      {{/pop-over}}
+    </div>
+
+  </div>
 </div>
-
-<div class="pop-overs">
-  <p>
-    By default the pop-over closes when the body is clicked,
-    set <code>interactive=true</code> to override this behaviour
-    so you can manually close it when you want
-  </p>
-
-  {{#pop-over class="bottom"}}
-    {{#pop-over-anchor}}Click Me (bottom){{/pop-over-anchor}}
-    {{#pop-over-body interactive=true}}
-      {{lorem-ipsum}}
-      <p>
-        <button {{action "clicked"}}>Click Me</button>
-      </p>
-    {{/pop-over-body}}
-  {{/pop-over}}
-
-  {{#pop-over position="top" class="top"}}
-    {{#pop-over-anchor}}Click Me (top){{/pop-over-anchor}}
-    {{#pop-over-body interactive=true}}
-      {{lorem-ipsum}}
-      <p>
-        <button {{action "clicked"}}>Click Me</button>
-      </p>
-    {{/pop-over-body}}
-  {{/pop-over}}
-
-  {{#pop-over position="left" class="left"}}
-    {{#pop-over-anchor}}Click Me (left){{/pop-over-anchor}}
-    {{#pop-over-body interactive=true}}
-      {{lorem-ipsum}}
-      <p>
-        <button {{action "clicked"}}>Click Me</button>
-      </p>
-    {{/pop-over-body}}
-  {{/pop-over}}
-
-  {{#pop-over position="right" class="right"}}
-    {{#pop-over-anchor}}Click Me (right){{/pop-over-anchor}}
-    {{#pop-over-body interactive=true}}
-      {{lorem-ipsum}}
-      <p>
-        <button {{action "clicked"}}>Click Me</button>
-      </p>
-    {{/pop-over-body}}
-  {{/pop-over}}
-</div>
-
-Clicked: {{clickNum}}

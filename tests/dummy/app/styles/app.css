@@ -1,5 +1,16 @@
-html, body {
-  margin: 20px;
+
+.make-it-scroll {
+  width: 250vw;
+  height: 250vh;
+}
+
+.inner {
+  margin: auto;
+  margin-top: 100vh;
+  width: 500px;
+  height: 500px;
+  border: 1px solid red;
+  text-align: center;
 }
 
 .pop-over {
@@ -9,6 +20,10 @@ html, body {
 
 .pop-over__anchor {
   display: inline-block;
+  cursor: pointer;
+  border: 1px solid #CCC;
+  padding: 10px;
+  margin: 10px;
 }
 
 .pop-over__body {
@@ -27,5 +42,7 @@ html, body {
 /* demo */
 
 .pop-overs {
-  margin-top: 300px;
+  display: flex;
+  justify-content: center;
+  padding: 100px;
 }

@@ -36,9 +36,11 @@ export default Ember.Component.extend({
     }
   }),
 
-  positionClass: Ember.computed("position", function() {
-    const position = this.get("position");
-    return "pop-over--"+position;
+  positionClass: Ember.computed("position", {
+    get() {
+      const position = this.get("position");
+      return "pop-over--"+position;
+    }
   })
 
 });
