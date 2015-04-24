@@ -20,22 +20,8 @@ html, body {
   z-index: 10;
 }
 
-.pop-over--bottom .pop-over__body {
-  top: 100%;
-}
-
-.pop-over--top .pop-over__body {
-  bottom: 100%;
-}
-
-.pop-over--left .pop-over__body {
-  right: 100%;
-  top: -100%;
-}
-
-.pop-over--right .pop-over__body {
-  left: 100%;
-  top: -100%;
+.pop-over__body--hidden {
+  display: none;
 }
 
 /* demo */

@@ -5,6 +5,7 @@ const alias = Ember.computed.alias;
 
 export default Ember.Component.extend({
   classNames: ["pop-over__body"],
+  classNameBindings: ["visibleClass"],
 
   popOver: null,
   interactive: false,
@@ -14,9 +15,16 @@ export default Ember.Component.extend({
     this.set("popOver", parent);
   }),
 
-  isVisible: alias("isOpen"),
   isOpen:    alias("popOver.isOpen"),
   position:  alias("popOver.position"),
+
+  visibleClass: Ember.computed("isOpen", function() {
+    if (this.get("isOpen")) {
+      return "pop-over__body--visible";
+    } else {
+      return "pop-over__body--hidden";
+    }
+  }),
 
   showingChanged: Ember.on("didInsertElement", Ember.observer("isOpen", function() {
     if (this.get("isOpen")) {
@@ -82,11 +90,6 @@ export default Ember.Component.extend({
     let top = idealTop > maxTop ? maxTop : idealTop;
     top = top < edgeBuffer ? edgeBuffer : top;
 
-    const arrowDiff = idealTop - top;
-    this.$(".pop-over-arrow").css({
-      bottom: (height / 2) - arrowDiff
-    });
-
     if (left > maxLeft) {
       this.set("position", "left");
       return {
@@ -122,11 +125,6 @@ export default Ember.Component.extend({
 
     let left = idealLeft > maxLeft ? maxLeft : idealLeft;
     left = left < edgeBuffer ? edgeBuffer : left;
-
-    const arrowDiff = idealLeft - left;
-    this.$(".pop-over-arrow").css({
-      left: (width / 2) + arrowDiff
-    });
 
     if (top > maxTop) {
       this.set("position", "top");
