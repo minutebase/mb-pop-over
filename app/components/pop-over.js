@@ -1,24 +1,22 @@
 import Ember from 'ember';
 
-var globalParent = {};
+const globalParent = {};
 
 export default Ember.Component.extend({
-  classNames: ["pop-over"],
+  classNames:        ["pop-over"],
   classNameBindings: ["positionClass"],
 
   isPopOver: true,
-
-  isOpen: false,
-
+  isOpen:    false,
   position: "bottom",
 
-  setupScopeParent: function() {
-    var parent = this.nearestWithProperty("isPopOver");
+  setupScopeParent: Ember.on("init", function() {
+    const parent = this.nearestWithProperty("isPopOver");
     this.scopeParent = parent || globalParent;
-  }.on("init"),
+  }),
 
-  registerCurrentWhenOpened: function() {
-    var current = this.scopeParent.currentPopOver;
+  registerCurrentWhenOpened: Ember.on("didInsertElement", Ember.observer("isOpen", function() {
+    let current = this.scopeParent.currentPopOver;
     if (this.get("isOpen")) {
       if (current && current !== this) {
         current.set("isOpen", false);
@@ -30,17 +28,17 @@ export default Ember.Component.extend({
       }
     }
     this.scopeParent.currentPopOver = current;
-  }.observes("isOpen").on("didInsertElement"),
+  })),
 
-  unregisterCurrentWhenClosed: function() {
+  unregisterCurrentWhenClosed: Ember.on("willDestroyElement", function() {
     if (this.scopeParent.currentPopOver === this) {
       this.scopeParent.currentPopOver = null;
     }
-  }.on("willDestroyElement"),
+  }),
 
-  positionClass: function() {
-    var position = this.get("position");
+  positionClass: Ember.computed("position", function() {
+    const position = this.get("position");
     return "pop-over--"+position;
-  }.property("position")
+  })
 
 });

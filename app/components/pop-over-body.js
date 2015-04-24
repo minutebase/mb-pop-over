@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import scrollParent from 'mb-pop-over/utils/scroll-parent';
 
-var alias = Ember.computed.alias;
+const alias = Ember.computed.alias;
 
 export default Ember.Component.extend({
   classNames: ["pop-over__body"],
@@ -9,38 +9,38 @@ export default Ember.Component.extend({
   popOver: null,
   interactive: false,
 
-  setupParent: function() {
-    var parent = this.nearestWithProperty("isOpen");
+  setupParent: Ember.on("init", function() {
+    const parent = this.nearestWithProperty("isOpen");
     this.set("popOver", parent);
-  }.on("init"),
+  }),
 
   isVisible: alias("isOpen"),
   isOpen:    alias("popOver.isOpen"),
   position:  alias("popOver.position"),
 
-  showingChanged: function() {
+  showingChanged: Ember.on("didInsertElement", Ember.observer("isOpen", function() {
     if (this.get("isOpen")) {
       Ember.run.scheduleOnce('afterRender', this, 'reposition');
       this.setupListeners();
     } else {
       this.teardownListeners();
     }
-  }.observes("isOpen").on("didInsertElement"),
+  })),
 
-  hideIfClickedOutside: function(e) {
+  hideIfClickedOutside(e) {
     if (Ember.$(e.target).closest(".pop-over").length) {
       return;
     }
     this.set("isOpen", false);
   },
 
-  hideIfClicked: function() {
+  hideIfClicked: Ember.on("click", function() {
     if (!this.get("interactive")) {
       this.set("isOpen", false);
     }
-  }.on("click"),
+  }),
 
-  setupListeners: function() {
+  setupListeners() {
     this._scrollHandler = this._scrollHandler || this.repositionDebounced.bind(this);
     this._clickHandler  = this._clickHandler || this.hideIfClickedOutside.bind(this);
 
@@ -48,103 +48,124 @@ export default Ember.Component.extend({
     Ember.$(document).on("mouseup", this._clickHandler);
   },
 
-  teardownListeners: function() {
+  teardownListeners: Ember.on("willDestroyElement", function() {
     if (this._scrollHandler) {
       scrollParent(this.$()).off("scroll", this._scrollHandler);
     }
     if (this._clickHandler) {
       Ember.$(document).off("mouseup", this._clickHandler);
     }
-  }.on("willDestroyElement"),
+  }),
 
-  anchorPosition: function() {
+  anchorPosition() {
     return this.get("popOver.element").getBoundingClientRect();
   },
 
-  repositionDebounced: function() {
+  repositionDebounced() {
     return Ember.run.debounce(this, this.reposition, 10);
   },
 
-  // TODO - refactor
-  reposition: function() {
-    var arrowDiff, idealLeft, idealTop, left, maxLeft, maxTop, move, top;
-    if (this._state !== "inDOM") {
-      return;
-    }
-
-    var anchor = this.anchorPosition();
-
+  positionHorizontal() {
+    const anchor = this.anchorPosition();
     if (!anchor) {
       return;
     }
 
-    var height     = this.$().outerHeight(true);
-    var width      = this.$().outerWidth(true);
-    var edgeBuffer = 10;
+    const height     = this.$().outerHeight(true);
+    const edgeBuffer = 10;
 
+    const left      = anchor.right;
+    const maxTop    = Ember.$(window).height() - height - edgeBuffer;
+    const maxLeft   = Ember.$(window).width() / 2;
+    const idealTop  = anchor.top + (anchor.height / 2) - (height / 2);
+
+    let top = idealTop > maxTop ? maxTop : idealTop;
+    top = top < edgeBuffer ? edgeBuffer : top;
+
+    const arrowDiff = idealTop - top;
+    this.$(".pop-over-arrow").css({
+      bottom: (height / 2) - arrowDiff
+    });
+
+    if (left > maxLeft) {
+      this.set("position", "left");
+      return {
+        top:    top,
+        left:   "auto",
+        bottom: "auto",
+        right:  Ember.$(window).width() - anchor.left
+      };
+    } else {
+      this.set("position", "right");
+      return {
+        top:    top,
+        left:   left,
+        bottom: "auto",
+        right:  "auto"
+      };
+    }
+  },
+
+  positionVertical() {
+    const anchor = this.anchorPosition();
+    if (!anchor) {
+      return;
+    }
+
+    const width      = this.$().outerWidth(true);
+    const edgeBuffer = 10;
+
+    const top       = anchor.bottom;
+    const maxTop    = Ember.$(window).height() / 2;
+    const maxLeft   = Ember.$(window).width() - width - edgeBuffer;
+    const idealLeft = anchor.left + (anchor.width / 2) - (width / 2);
+
+    let left = idealLeft > maxLeft ? maxLeft : idealLeft;
+    left = left < edgeBuffer ? edgeBuffer : left;
+
+    const arrowDiff = idealLeft - left;
+    this.$(".pop-over-arrow").css({
+      left: (width / 2) + arrowDiff
+    });
+
+    if (top > maxTop) {
+      this.set("position", "top");
+      return {
+        top: "auto",
+        left: left,
+        bottom: Ember.$(window).height() - anchor.top,
+        right: "auto"
+      };
+    } else {
+      this.set("position", "bottom");
+      return {
+        top:    top,
+        left:   left,
+        bottom: "auto",
+        right:  "auto"
+      };
+    }
+  },
+
+  reposition() {
+    if (this._state !== "inDOM") {
+      return;
+    }
+
+    let move;
     switch (this.get("position")) {
       case "right":
       case "left":
-        left = anchor.right;
-        maxTop = Ember.$(window).height() - height - edgeBuffer;
-        maxLeft = Ember.$(window).width() / 2;
-        idealTop = anchor.top + (anchor.height / 2) - (height / 2);
-        top = idealTop > maxTop ? maxTop : idealTop;
-        top = top < edgeBuffer ? edgeBuffer : top;
-        arrowDiff = idealTop - top;
-        this.$(".pop-over-arrow").css({
-          bottom: (height / 2) - arrowDiff
-        });
-        if (left > maxLeft) {
-          this.set("position", "left");
-          move = {
-            top: top,
-            left: "auto",
-            bottom: "auto",
-            right: Ember.$(window).width() - anchor.left
-          };
-        } else {
-          this.set("position", "right");
-          move = {
-            top: top,
-            left: left,
-            bottom: "auto",
-            right: "auto"
-          };
-        }
+        move = this.positionHorizontal();
         break;
 
       case "bottom":
       case "top":
-        top = anchor.bottom;
-        maxTop = Ember.$(window).height() / 2;
-        maxLeft = Ember.$(window).width() - width - edgeBuffer;
-        idealLeft = anchor.left + (anchor.width / 2) - (width / 2);
-        left = idealLeft > maxLeft ? maxLeft : idealLeft;
-        left = left < edgeBuffer ? edgeBuffer : left;
-        arrowDiff = idealLeft - left;
-        this.$(".pop-over-arrow").css({
-          left: (width / 2) + arrowDiff
-        });
-        if (top > maxTop) {
-          this.set("position", "top");
-          move = {
-            top: "auto",
-            left: left,
-            bottom: Ember.$(window).height() - anchor.top,
-            right: "auto"
-          };
-        } else {
-          this.set("position", "bottom");
-          move = {
-            top: top,
-            left: left,
-            bottom: "auto",
-            right: "auto"
-          };
-        }
+        move = this.positionVertical();
     }
 
-    this.$().css(move);
+    if (move) {
+      this.$().css(move);
+    }
   }
 });
