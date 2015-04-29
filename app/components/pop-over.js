@@ -19,7 +19,7 @@ export default Ember.Component.extend({
     let current = this.scopeParent.currentPopOver;
     if (this.get("isOpen")) {
       if (current && current !== this) {
-        this.send("close");
+        current.send("close");
       }
       current = this;
     } else {
