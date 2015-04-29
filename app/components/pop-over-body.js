@@ -1,8 +1,6 @@
 import Ember from 'ember';
 import scrollParent from 'mb-pop-over/utils/scroll-parent';
 
-const alias = Ember.computed.alias;
-
 function pxVal(val) {
   if (val === "auto") {
     return val;
@@ -24,12 +22,12 @@ export default Ember.Component.extend({
   interactive: false,
 
   setupParent: Ember.on("init", function() {
-    const parent = this.nearestWithProperty("isOpen");
+    const parent = this.nearestWithProperty("isPopOver");
     this.set("popOver", parent);
   }),
 
-  isOpen:    alias("popOver.isOpen"),
-  position:  alias("popOver.position"), // top, bottom, left, right, (TODO - top-left, top-right, bottom-left, bottom-right?)
+  isOpen:    Ember.computed.reads("popOver.isOpen"),
+  position:  Ember.computed.reads("popOver.position"), // top, bottom, left, right, (TODO - top-left, top-right, bottom-left, bottom-right?)
 
   updatePositionCSS() {
     const { top, left, bottom, right } = this.getProperties("top", "left", "bottom", "right");
@@ -65,12 +63,12 @@ export default Ember.Component.extend({
     if (Ember.$(e.target).closest(".pop-over").length) {
       return;
     }
-    this.set("isOpen", false);
+    this.get("popOver").send("close");
   },
 
   hideIfClicked: Ember.on("click", function() {
     if (!this.get("interactive")) {
-      this.set("isOpen", false);
+      this.get("popOver").send("close");
     }
   }),
 

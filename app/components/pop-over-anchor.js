@@ -6,17 +6,17 @@ export default Ember.Component.extend({
   popOver: null,
 
   setupParent: Ember.on("init", function() {
-    const parent = this.nearestWithProperty("isOpen");
+    const parent = this.nearestWithProperty("isPopOver");
     this.set("popOver", parent);
   }),
 
-  isOpen: Ember.computed.alias("popOver.isOpen"),
+  isOpen: Ember.computed.reads("popOver.isOpen"),
 
   toggle: Ember.on("click", function(e) {
     e.preventDefault();
     e.stopPropagation();
 
-    this.toggleProperty("isOpen");
+    this.get("popOver").send("toggle");
   })
 
 });

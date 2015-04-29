@@ -4,11 +4,11 @@ const globalParent = {};
 
 export default Ember.Component.extend({
   classNames:        ["pop-over"],
-  classNameBindings: ["positionClass"],
 
   isPopOver: true,
   isOpen:    false,
   position: "bottom",
+  manual:    false,
 
   setupScopeParent: Ember.on("init", function() {
     const parent = this.nearestWithProperty("isPopOver");
@@ -19,7 +19,7 @@ export default Ember.Component.extend({
     let current = this.scopeParent.currentPopOver;
     if (this.get("isOpen")) {
       if (current && current !== this) {
-        current.set("isOpen", false);
+        this.send("close");
       }
       current = this;
     } else {
@@ -36,11 +36,28 @@ export default Ember.Component.extend({
     }
   }),
 
-  positionClass: Ember.computed("position", {
-    get() {
-      const position = this.get("position");
-      return "pop-over--"+position;
+  actions: {
+    close() {
+      if (!this.get("manual")) {
+        this.set("isOpen", false);
+      }
+      this.sendAction("closed");
+    },
+
+    toggle() {
+      if (this.get("isOpen")) {
+        this.send("close");
+      } else {
+        this.send("open");
+      }
+    },
+
+    open() {
+      if (!this.get("manual")) {
+        this.set("isOpen", true);
+      }
+      this.sendAction("opened");
     }
-  })
+  }
 
 });
