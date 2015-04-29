@@ -36,10 +36,12 @@
     "ember-try": "0.0.4"
   },
   "keywords": [
-    "ember-addon", "pop-over"
+    "ember-addon",
+    "pop-over"
   ],
   "dependencies": {
-    "ember-cli-babel": "^5.0.0"
+    "ember-cli-babel": "^5.0.0",
+    "ember-wormhole": "^0.3.1"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"

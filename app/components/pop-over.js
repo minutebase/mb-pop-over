@@ -5,10 +5,10 @@ const globalParent = {};
 export default Ember.Component.extend({
   classNames:        ["pop-over"],
 
-  isPopOver: true,
-  isOpen:    false,
-  position: "bottom",
-  manual:    false,
+  isPopOver:     true,
+  isOpen:        false,
+  position:     "bottom",
+  manual:        false,
 
   setupScopeParent: Ember.on("init", function() {
     const parent = this.nearestWithProperty("isPopOver");
