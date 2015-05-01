@@ -10,13 +10,25 @@ export default Ember.Component.extend({
   position:     "bottom",
   manual:        false,
 
+  scopeParent: null,
+
+  // for setting z-index so we can ensure child pop-overs have a higher z-index
+  depth: Ember.computed("scopeParent", function() {
+    const parent = this.get("scopeParent");
+    if (!parent || parent === globalParent) {
+      return 1;
+    }
+
+    return parent.get("depth") + 1;
+  }),
+
   setupScopeParent: Ember.on("init", function() {
     const parent = this.nearestWithProperty("isPopOver");
-    this.scopeParent = parent || globalParent;
+    this.set("scopeParent", parent || globalParent);
   }),
 
   registerCurrentWhenOpened: Ember.on("didInsertElement", Ember.observer("isOpen", function() {
-    let current = this.scopeParent.currentPopOver;
+    let current = this.get("scopeParent").currentPopOver;
     if (this.get("isOpen")) {
       if (current && current !== this) {
         current.send("close");
@@ -27,12 +39,12 @@ export default Ember.Component.extend({
         current = null;
       }
     }
-    this.scopeParent.currentPopOver = current;
+    this.get("scopeParent").currentPopOver = current;
   })),
 
   unregisterCurrentWhenClosed: Ember.on("willDestroyElement", function() {
-    if (this.scopeParent.currentPopOver === this) {
-      this.scopeParent.currentPopOver = null;
+    if (this.get("scopeParent").currentPopOver === this) {
+      this.get("scopeParent").currentPopOver = null;
     }
   }),
 

@@ -32,6 +32,7 @@ export default Ember.Component.extend({
     this.set("popOverBody", body);
   }),
 
+  depth:     Ember.computed.reads("popOver.depth"),
   isOpen:    Ember.computed.reads("popOver.isOpen"),
   position:  Ember.computed.reads("popOver.position"), // top, bottom, left, right, (TODO - top-left, top-right, bottom-left, bottom-right?)
 
@@ -42,7 +43,8 @@ export default Ember.Component.extend({
       top: pxVal(top),
       left: pxVal(left),
       bottom: pxVal(bottom),
-      right: pxVal(right)
+      right: pxVal(right),
+      zIndex: this.get("depth") + 1000 // sufficiently high to be above everything else?
     });
   },
 
