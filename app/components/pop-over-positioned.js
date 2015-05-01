@@ -27,6 +27,7 @@ export default Ember.Component.extend({
   setupParent: Ember.on("init", function() {
     const parent = this.nearestWithProperty("isPopOver");
     this.set("popOver", parent);
+    parent.set("body", this);
 
     const body = this.nearestWithProperty("isPopOverBody");
     this.set("popOverBody", body);

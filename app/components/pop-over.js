@@ -12,6 +12,9 @@ export default Ember.Component.extend({
 
   scopeParent: null,
 
+  body:   null,
+  anchor: null,
+
   // for setting z-index so we can ensure child pop-overs have a higher z-index
   depth: Ember.computed("scopeParent", function() {
     const parent = this.get("scopeParent");

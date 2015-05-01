@@ -9,6 +9,7 @@ export default Ember.Component.extend({
   setupParent: Ember.on("init", function() {
     const parent = this.nearestWithProperty("isPopOver");
     this.set("popOver", parent);
+    parent.set("anchor", this);
   }),
 
   isOpen: Ember.computed.reads("popOver.isOpen"),
