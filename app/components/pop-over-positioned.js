@@ -69,9 +69,11 @@ export default Ember.Component.extend({
   })),
 
   hideIfClickedOutside(e) {
-    if (Ember.$(e.target).closest(".pop-over,.pop-over__body").length) {
+    const element = this.get("element");
+    if (e.target === element || Ember.$.contains(element, e.target)) {
       return;
     }
+
     this.get("popOver").send("close");
   },
 
