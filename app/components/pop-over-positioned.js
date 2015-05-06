@@ -69,6 +69,10 @@ export default Ember.Component.extend({
   })),
 
   hideIfClickedOutside(e) {
+    if (!this.get("isOpen")) {
+      return;
+    }
+
     const element = this.get("element");
     if (e.target === element || Ember.$.contains(element, e.target)) {
       return;
@@ -92,7 +96,7 @@ export default Ember.Component.extend({
     this._clickHandler  = this._clickHandler || this.hideIfClickedOutside.bind(this);
 
     this.scrollParent().on("scroll", this._scrollHandler);
-    Ember.$(document).on("mouseup", this._clickHandler);
+    Ember.$(document).on("mousedown", this._clickHandler);
   },
 
   teardownListeners: Ember.on("willDestroyElement", function() {
@@ -100,7 +104,7 @@ export default Ember.Component.extend({
       this.scrollParent().off("scroll", this._scrollHandler);
     }
     if (this._clickHandler) {
-      Ember.$(document).off("mouseup", this._clickHandler);
+      Ember.$(document).off("mousedown", this._clickHandler);
     }
   }),
 
