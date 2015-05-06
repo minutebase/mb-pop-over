@@ -12,6 +12,13 @@ export default Ember.Component.extend({
 
   service:              Ember.inject.service("pop-over"),
   destinationElementId: Ember.computed.reads("service.destinationElementId"),
-  renderInPlace: false
+  renderInPlace: false,
+
+  setupParent: Ember.on("init", function() {
+    const parent = this.nearestWithProperty("isPopOver");
+    this.set("popOver", parent);
+  }),
+
+  isOpen: Ember.computed.reads("popOver.isOpen")
 
 });

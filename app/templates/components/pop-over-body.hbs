@@ -1,5 +1,7 @@
 {{#ember-wormhole to=destinationElementId renderInPlace=renderInPlace}}
-  {{#pop-over-positioned}}
-    {{yield}}
-  {{/pop-over-positioned}}
+  {{#if isOpen}}
+    {{#pop-over-positioned}}
+      {{yield}}
+    {{/pop-over-positioned}}
+  {{/if}}
 {{/ember-wormhole}}
