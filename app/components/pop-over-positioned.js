@@ -73,9 +73,20 @@ export default Ember.Component.extend({
       return;
     }
 
-    const element = this.get("element");
-    if (e.target === element || Ember.$.contains(element, e.target)) {
-      return;
+    // did we click inside this pop-over, or a child of this one?
+    const body = Ember.$(e.target).closest(".pop-over__body");
+    if (body.length) {
+      const thisPopOver   = this.get("popOver");
+      const bodyComponent = Ember.View.views[body[0].id];
+
+      let popOver = bodyComponent.get("popOver");
+
+      while (popOver) {
+        if (popOver === thisPopOver) {
+          return;
+        }
+        popOver = popOver.get("parentPopOver");
+      }
     }
 
     this.get("popOver").send("close");
