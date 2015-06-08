@@ -3,6 +3,8 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   classNames: "pop-over__anchor",
 
+  classNameBindings: ["isOpenClass"],
+
   popOver: null,
   on:     "click",
 
@@ -13,6 +15,14 @@ export default Ember.Component.extend({
   }),
 
   isOpen: Ember.computed.reads("popOver.isOpen"),
+
+  isOpenClass: Ember.computed("isOpen", {
+    get() {
+      if (this.get("isOpen")) {
+        return "pop-over__anchor--open";
+      }
+    }
+  }),
 
   onClick: Ember.on("click", function(e) {
     e.preventDefault();
