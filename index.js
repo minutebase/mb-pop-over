@@ -2,5 +2,5 @@
 'use strict';
 
 module.exports = {
-  name: 'mb-pop-over'
+  name: 'ember-mb-pop-over'
 };

@@ -1,6 +1,4 @@
-# mb-pop-over
-
-WiP
+# ember-mb-pop-over
 
 ```handlebars
 {{#pop-over}}

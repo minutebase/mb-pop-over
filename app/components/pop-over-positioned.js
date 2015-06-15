@@ -1,2 +1,2 @@
-import PopOverPositioned from 'mb-pop-over/components/pop-over-positioned';
+import PopOverPositioned from 'ember-mb-pop-over/components/pop-over-positioned';
 export default PopOverPositioned;

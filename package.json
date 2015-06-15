@@ -1,6 +1,6 @@
 {
-  "name": "mb-pop-over",
-  "version": "0.0.3",
+  "name": "ember-mb-pop-over",
+  "version": "0.0.4",
   "description": "Pop-overs for Ember",
   "directories": {
     "doc": "doc",
