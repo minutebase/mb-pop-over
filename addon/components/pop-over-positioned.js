@@ -11,7 +11,7 @@ function pxVal(val) {
 
 export default Ember.Component.extend({
   classNames: ["pop-over__body"],
-  classNameBindings: ["visibleClass"],
+  classNameBindings: ["visibleClass", "parentBodyClasses"],
 
   top:    null,
   left:   null,
@@ -31,6 +31,12 @@ export default Ember.Component.extend({
 
     const body = this.nearestWithProperty("isPopOverBody");
     this.set("popOverBody", body);
+  }),
+
+  parentBodyClasses: Ember.computed("popOverBody", {
+    get() {
+      return this.get("popOverBody.classNames").reject(c => c === 'ember-view').join(" ");
+    }
   }),
 
   depth:     Ember.computed.reads("popOver.depth"),
