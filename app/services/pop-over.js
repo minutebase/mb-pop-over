@@ -1,5 +1,2 @@
-import Ember from 'ember';
-
-export default Ember.Service.extend({
-  destinationElementId: null // injected in initializers
-});
+import PopOverService from 'mb-pop-over/services/pop-over';
+export default PopOverService;
