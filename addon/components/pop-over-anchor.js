@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   classNames: "pop-over__anchor",
 
-  classNameBindings: ["isOpenClass"],
+  classNameBindings: ["isOpenClass", "classNamesFromParent"],
 
   popOver: null,
   on:     "click",
@@ -12,6 +12,17 @@ export default Ember.Component.extend({
     const parent = this.nearestWithProperty("isPopOver");
     this.set("popOver", parent);
     parent.set("anchor", this);
+  }),
+
+  classNamesFromParent: Ember.computed("popOver.anchorClassNames", {
+    get() {
+      const names = this.get("popOver.anchorClassNames");
+      if (names && Ember.isArray(names)) {
+        return names.join(' ');
+      } else {
+        return names;
+      }
+    }
   }),
 
   isOpen: Ember.computed.reads("popOver.isOpen"),

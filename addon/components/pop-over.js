@@ -10,6 +10,9 @@ export default Ember.Component.extend({
   position:     "bottom",
   manual:        false,
 
+  bodyClassNames:   null,
+  anchorClassNames: null,
+
   _scopeParent: null,
 
   parentPopOver: Ember.computed("_scopeParent", function() {
