@@ -3,12 +3,18 @@ import Ember from 'ember';
 const globalParent = {};
 
 export default Ember.Component.extend({
-  classNames:        ["pop-over"],
+  tagName: '',
 
   isPopOver:     true,
   isOpen:        false,
-  position:     "bottom",
   manual:        false,
+
+  'anchor-attachment': 'bottom left',
+  'body-attachment':   'top left',
+  'body-constraints': [{
+    to:         'window',
+    attachment: 'together'
+  }],
 
   bodyClassNames:   null,
   anchorClassNames: null,
@@ -26,16 +32,6 @@ export default Ember.Component.extend({
 
   body:   null,
   anchor: null,
-
-  // for setting z-index so we can ensure child pop-overs have a higher z-index
-  depth: Ember.computed("_scopeParent", function() {
-    const parent = this.get("_scopeParent");
-    if (!parent || parent === globalParent) {
-      return 1;
-    }
-
-    return parent.get("depth") + 1;
-  }),
 
   setupScopeParent: Ember.on("init", function() {
     const parent = this.nearestWithProperty("isPopOver");

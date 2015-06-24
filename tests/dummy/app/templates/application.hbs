@@ -2,29 +2,22 @@
 <div class="make-it-scroll">
   <div class="inner">
     <div class="pop-overs">
-      {{#pop-over class="bottom"}}
-        {{#pop-over-anchor}}bottom{{/pop-over-anchor}}
+      {{#pop-over anchor-attachment="bottom middle" body-attachment="top middle"}}
+        {{#pop-over-anchor}}bottom centered{{/pop-over-anchor}}
         {{#pop-over-body}}
           {{lorem-ipsum}}
         {{/pop-over-body}}
       {{/pop-over}}
 
-      {{#pop-over position="top"}}
-        {{#pop-over-anchor}}top{{/pop-over-anchor}}
+      {{#pop-over anchor-attachment="top right" body-attachment="bottom left"}}
+        {{#pop-over-anchor}}top right{{/pop-over-anchor}}
         {{#pop-over-body}}
           {{lorem-ipsum}}
         {{/pop-over-body}}
       {{/pop-over}}
 
-      {{#pop-over position="left"}}
-        {{#pop-over-anchor}}left{{/pop-over-anchor}}
-        {{#pop-over-body}}
-          {{lorem-ipsum}}
-        {{/pop-over-body}}
-      {{/pop-over}}
-
-      {{#pop-over position="right"}}
-        {{#pop-over-anchor}}right{{/pop-over-anchor}}
+      {{#pop-over anchor-attachment="bottom left" body-attachment="top left"}}
+        {{#pop-over-anchor}}bottom left{{/pop-over-anchor}}
         {{#pop-over-body}}
           {{lorem-ipsum}}
         {{/pop-over-body}}
@@ -38,10 +31,17 @@
     </p>
 
     <div class="pop-overs">
-      {{#pop-over class="bottom"}}
+      {{#pop-over}}
         {{#pop-over-anchor}}interactive{{/pop-over-anchor}}
         {{#pop-over-body interactive=true}}
-          {{lorem-ipsum}}
+
+          {{#pop-over}}
+            {{#pop-over-anchor}}nested{{/pop-over-anchor}}
+            {{#pop-over-body}}
+              {{lorem-ipsum}}
+            {{/pop-over-body}}
+          {{/pop-over}}
+
         {{/pop-over-body}}
       {{/pop-over}}
     </div>
