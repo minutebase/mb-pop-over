@@ -18,6 +18,8 @@ export default Ember.Component.extend({
 
   bodyClassNames:   null,
   anchorClassNames: null,
+  'body-class':     null,
+  'anchor-class':   null,
 
   _scopeParent: null,
 

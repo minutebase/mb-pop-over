@@ -1,10 +1,16 @@
 import Ember from 'ember';
 
 import TetheredComponent from 'ember-tether/components/ember-tether';
+import computedJoin from '../computed/join';
 
 export default TetheredComponent.extend({
   classNames: ["pop-over__body"],
-  classNameBindings: ["visibleClass", "classNamesFromBody", "classNamesFromParent"],
+  classNameBindings: [
+    "visibleClass",
+    "classNamesFromBody",
+    "classNamesFromParent",
+    "popOver.body-class"
+  ],
 
   // auto-registered parent components
   popOver:     null,
@@ -48,16 +54,7 @@ export default TetheredComponent.extend({
     }
   }),
 
-  classNamesFromParent: Ember.computed("popOver.bodyClassNames", {
-    get() {
-      const names = this.get("popOver.bodyClassNames");
-      if (names && Ember.isArray(names)) {
-        return names.join(' ');
-      } else {
-        return names;
-      }
-    }
-  }),
+  classNamesFromParent: computedJoin("popOver.bodyClassNames"),
 
   isOpen: Ember.computed.reads("popOver.isOpen"),
 

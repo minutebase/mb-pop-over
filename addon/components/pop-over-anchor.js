@@ -1,9 +1,14 @@
 import Ember from 'ember';
+import computedJoin from '../computed/join';
 
 export default Ember.Component.extend({
   classNames: "pop-over__anchor",
 
-  classNameBindings: ["isOpenClass", "classNamesFromParent"],
+  classNameBindings: [
+    "isOpenClass",
+    "classNamesFromParent",
+    "popOver.anchor-class"
+  ],
 
   popOver: null,
   on:     "click",
@@ -14,16 +19,7 @@ export default Ember.Component.extend({
     parent.set("anchor", this);
   }),
 
-  classNamesFromParent: Ember.computed("popOver.anchorClassNames", {
-    get() {
-      const names = this.get("popOver.anchorClassNames");
-      if (names && Ember.isArray(names)) {
-        return names.join(' ');
-      } else {
-        return names;
-      }
-    }
-  }),
+  classNamesFromParent: computedJoin("popOver.anchorClassNames"),
 
   isOpen: Ember.computed.reads("popOver.isOpen"),
 
