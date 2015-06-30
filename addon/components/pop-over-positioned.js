@@ -88,7 +88,7 @@ export default TetheredComponent.extend({
     const body = Ember.$(e.target).closest(".pop-over__body");
     if (body.length) {
       const thisPopOver   = this.get("popOver");
-      const bodyComponent = Ember.View.views[body[0].id];
+      const bodyComponent = this.container.lookup("-view-registry:main")[body[0].id];
 
       let popOver = bodyComponent.get("popOver");
 
