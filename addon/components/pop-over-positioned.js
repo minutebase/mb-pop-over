@@ -48,12 +48,7 @@ export default TetheredComponent.extend({
     this.set("popOverBody", body);
   }),
 
-  classNamesFromBody: Ember.computed("popOverBody", {
-    get() {
-      return this.get("popOverBody.classNames").reject(c => c === 'ember-view').join(" ");
-    }
-  }),
-
+  classNamesFromBody: Ember.computed.reads("popOverBody.class"),
   classNamesFromParent: computedJoin("popOver.bodyClassNames"),
 
   isOpen: Ember.computed.reads("popOver.isOpen"),
