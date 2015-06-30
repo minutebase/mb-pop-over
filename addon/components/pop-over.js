@@ -40,6 +40,10 @@ export default Ember.Component.extend({
     this.set("_scopeParent", parent || globalParent);
   }),
 
+  reposition() {
+    this.get("body").reposition();
+  },
+
   registerCurrentWhenOpened: Ember.on("didInsertElement", Ember.observer("isOpen", function() {
     let current = this.get("_scopeParent").currentPopOver;
     if (this.get("isOpen")) {

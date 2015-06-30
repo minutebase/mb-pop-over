@@ -37,6 +37,10 @@ export default TetheredComponent.extend({
     this._super();
   },
 
+  reposition() {
+    this._tether.position();
+  },
+
   interactive: Ember.computed.reads("popOverBody.interactive"),
 
   setupParent: Ember.on("init", function() {
