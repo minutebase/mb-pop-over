@@ -83,6 +83,12 @@ export default TetheredComponent.extend({
       return;
     }
 
+    // did we click inside an anchor, ignore as that will handle toggling open/close
+    const anchor = Ember.$(e.target).closest(".pop-over__anchor");
+    if (anchor.length) {
+      return;
+    }
+
     // did we click inside this pop-over, or a child of this one?
     const body = Ember.$(e.target).closest(".pop-over__body");
     if (body.length) {
