@@ -32,12 +32,12 @@ export default Ember.Component.extend({
   }),
 
   onClick: Ember.on("click", function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-
     if (this.get("open-on") !== "click") {
       return;
     }
+
+    e.preventDefault();
+    e.stopPropagation();
 
     this.get("popOver").send("toggle");
   }),
