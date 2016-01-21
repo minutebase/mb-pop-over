@@ -2,25 +2,25 @@
 <div class="make-it-scroll">
   <div class="inner">
     <div class="pop-overs">
-      {{#pop-over anchor-attachment="bottom middle" body-attachment="top middle"}}
-        {{#pop-over-anchor}}bottom centered{{/pop-over-anchor}}
-        {{#pop-over-body}}
+      {{#pop-over anchor-attachment="bottom middle" body-attachment="top middle" as |p|}}
+        {{#p.anchor}}bottom centered{{/p.anchor}}
+        {{#p.body}}
           {{lorem-ipsum}}
-        {{/pop-over-body}}
+        {{/p.body}}
       {{/pop-over}}
 
-      {{#pop-over anchor-attachment="top right" body-attachment="bottom left"}}
-        {{#pop-over-anchor}}top right{{/pop-over-anchor}}
-        {{#pop-over-body}}
+      {{#pop-over anchor-attachment="top right" body-attachment="bottom left" as |p|}}
+        {{#p.anchor}}top right{{/p.anchor}}
+        {{#p.body}}
           {{lorem-ipsum}}
-        {{/pop-over-body}}
+        {{/p.body}}
       {{/pop-over}}
 
-      {{#pop-over anchor-attachment="bottom left" body-attachment="top left"}}
-        {{#pop-over-anchor}}bottom left{{/pop-over-anchor}}
-        {{#pop-over-body}}
+      {{#pop-over anchor-attachment="bottom left" body-attachment="top left" as |p|}}
+        {{#p.anchor}}bottom left{{/p.anchor}}
+        {{#p.body}}
           {{lorem-ipsum}}
-        {{/pop-over-body}}
+        {{/p.body}}
       {{/pop-over}}
     </div>
 
@@ -31,18 +31,18 @@
     </p>
 
     <div class="pop-overs">
-      {{#pop-over}}
-        {{#pop-over-anchor}}interactive{{/pop-over-anchor}}
-        {{#pop-over-body interactive=true}}
+      {{#pop-over as |p|}}
+        {{#p.anchor}}interactive{{/p.anchor}}
+        {{#p.body interactive=true}}
 
-          {{#pop-over}}
-            {{#pop-over-anchor}}nested{{/pop-over-anchor}}
-            {{#pop-over-body}}
+          {{#pop-over as |n|}}
+            {{#n.anchor}}nested{{/n.anchor}}
+            {{#n.body}}
               {{lorem-ipsum}}
-            {{/pop-over-body}}
+            {{/n.body}}
           {{/pop-over}}
 
-        {{/pop-over-body}}
+        {{/p.body}}
       {{/pop-over}}
     </div>
 

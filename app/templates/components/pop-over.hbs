@@ -1,1 +1,5 @@
-{{yield this}}
+{{yield (hash
+  isOpen=isOpen
+  body=(component "pop-over-body")
+  anchor=(component "pop-over-anchor")
+)}}

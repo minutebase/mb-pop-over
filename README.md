@@ -1,11 +1,11 @@
 # ember-mb-pop-over
 
 ```handlebars
-{{#pop-over}}
-  {{#pop-over-anchor}}Click Me{{/pop-over-anchor}}
-  {{#pop-over-body}}
+{{#pop-over as |p|}}
+  {{#p.anchor}}Click Me{{/p.anchor}}
+  {{#p.body}}
     The pop-over contents
-  {{/pop-over-body}}
+  {{/p.body}}
 {{/pop-over}}
 ```
 
