@@ -1,4 +1,10 @@
-export default function(container, application) {
+export default function() {
+  if (typeof FastBoot) {
+    return;
+  }
+
+  const application = arguments[1] || arguments[0];
+
   const rootEl               = document.querySelector(application.rootElement);
   const popOverContainerEl   = document.createElement('div');
   const emberPopOver         = application.emberPopOver || {};
