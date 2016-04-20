@@ -1,5 +1,6 @@
 import Ember from 'ember';
 
+import getOwner from 'ember-getowner-polyfill';
 import TetheredComponent from 'ember-tether/components/ember-tether';
 import computedJoin from '../computed/join';
 
@@ -93,7 +94,7 @@ export default TetheredComponent.extend({
     const body = Ember.$(e.target).closest(".pop-over__body");
     if (body.length) {
       const thisPopOver   = this.get("popOver");
-      const bodyComponent = this.container.lookup("-view-registry:main")[body[0].id];
+      const bodyComponent = getOwner(this).lookup("-view-registry:main")[body[0].id];
 
       let popOver = bodyComponent.get("popOver");
 
